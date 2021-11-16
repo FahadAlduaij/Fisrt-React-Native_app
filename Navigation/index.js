@@ -6,6 +6,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Home from "../components/Home/Home";
 import ShopList from "../components/ShopList/ShopList";
 import ShopDetails from "../components/ShopList/ShopDetails";
+import CartList from "../components/CartList/CartList";
+import CartButton from "../components/buttons/CartButton";
 
 const RootNavigator = () => {
 	const { Navigator, Screen } = createStackNavigator();
@@ -22,7 +24,14 @@ const RootNavigator = () => {
 					headerShown: false,
 				}}
 			/>
-			<Screen name="ShopList" component={ShopList} />
+			<Screen
+				name="ShopList"
+				component={ShopList}
+				options={{
+					title: "Streaming Services",
+					headerRight: () => <CartButton />,
+				}}
+			/>
 			<Screen
 				name="ShopDetails"
 				component={ShopDetails}
@@ -30,9 +39,11 @@ const RootNavigator = () => {
 					const { shop } = route.params;
 					return {
 						title: shop.name,
+						headerRight: () => <CartButton />,
 					};
 				}}
 			/>
+			<Screen name="CartList" component={CartList} />
 		</Navigator>
 	);
 };

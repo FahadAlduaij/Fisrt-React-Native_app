@@ -5,7 +5,7 @@ export default function Home({ navigation }) {
 	return (
 		<Center flex={1} px="3">
 			<Container>
-				<Heading>
+				<Heading >
 					First React-Native App
 					<Heading color="danger.600"> Moviez</Heading>
 				</Heading>
@@ -14,10 +14,12 @@ export default function Home({ navigation }) {
 					gives you building blocks to build you React applications.
 				</Text>
 				<Button
-					px="5"
 					mt="3"
+					_text={{
+						color: "muted.50",
+					  }}
 					size="lg"
-					variant="outline"
+					variant="solid"
 					colorScheme="danger"
 					onPress={() => navigation.navigate("ShopList")}
 				>

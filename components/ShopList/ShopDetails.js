@@ -1,13 +1,10 @@
 import React from "react";
 import { observer } from "mobx-react";
-import { StyleSheet, View, Image } from "react-native";
-import { Center, Container, Text, Box, HStack } from "native-base";
+import { StyleSheet } from "react-native";
+import { Center, Container, HStack, ScrollView } from "native-base";
 
 // components
 import ProductList from "../ProductList/ProductList";
-
-// stores
-import { baseURL } from "../../stores/instance";
 
 const ShopDetails = ({ navigation, route }) => {
 	const { shop } = route.params;
@@ -16,9 +13,16 @@ const ShopDetails = ({ navigation, route }) => {
 	));
 
 	return (
-		<Center>
-			<Container mt="3">
-				<HStack p="2" borderRadius="20" justifyContent="center" alignItems="center">
+		<ScrollView>
+			<Center h="100%" w="100%">
+				<HStack
+					p="2"
+					borderRadius="20"
+					justifyContent="center"
+					alignItems="center"
+					flexWrap="wrap"
+				>
+					{productList}
 					{/* <Text>{shop.name}</Text>
 			<Image
 			source={{ uri: baseURL + shop.image }}
@@ -26,10 +30,9 @@ const ShopDetails = ({ navigation, route }) => {
 			alt="image"
 		/> */}
 					{/* <Text mt="3">Movies</Text> */}
-					{productList}
 				</HStack>
-			</Container>
-		</Center>
+			</Center>
+		</ScrollView>
 	);
 };
 
