@@ -21,7 +21,7 @@ const CartButton = () => {
 
 			<AntDesign
 				onPress={() => {
-					navigation.navigate("Home");
+					navigation.push("Home");
 				}}
 				name="home"
 				size={28}
