@@ -28,7 +28,7 @@ const RootNavigator = () => {
 				name="ShopList"
 				component={ShopList}
 				options={{
-					title: "Streaming Services",
+					title: "Stream",
 					headerRight: () => <CartButton />,
 				}}
 			/>
@@ -43,7 +43,13 @@ const RootNavigator = () => {
 					};
 				}}
 			/>
-			<Screen name="CartList" component={CartList} />
+			<Screen
+				name="CartList"
+				component={CartList}
+				options={{
+					title: "Cart",
+				}}
+			/>
 		</Navigator>
 	);
 };

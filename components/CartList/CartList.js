@@ -10,10 +10,14 @@ import cartStore from "../../stores/cartStore";
 
 const CartList = () => {
 	const itemList = cartStore.items.map((item) => (
-		<CartItem key={item.product._id} product={item.product} quantity={item.quantity} />
+		<CartItem
+			key={item.product._id}
+			product={item.product}
+			quantity={item.quantity}
+		/>
 	));
 
-	return <VStack>{itemList}</VStack>;
+	return <VStack m="3">{itemList}</VStack>;
 };
 
 export default observer(CartList);

@@ -27,6 +27,27 @@ class CartStore {
 			quantity: 3,
 		},
 	];
+
+	addItemToCart = (newItem, productId) => {
+		const item = this.items.find((item) => item.product._id === productId);
+		if (item) {
+			item.quantity = newItem;
+		} else {
+			this.items = [
+				...this.items,
+				{
+					product: {
+						_id: productId._id,
+						name: productId.name,
+						price: 10,
+						image: productId.image,
+					},
+					quantity: newItem,
+				},
+			];
+			console.log(this.items);
+		}
+	};
 }
 
 const cartStore = new CartStore();
