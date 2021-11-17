@@ -9,71 +9,68 @@ import {
 	HStack,
 	VStack,
 	Button,
+	Flex,
 } from "native-base";
 import NumericInput from "react-native-numeric-input";
 
 // stores
 import cartStore from "../../stores/cartStore";
+import { baseURL, instance } from "../../stores/instance";
 
 const CartItem = ({ product, quantity }) => {
 	const [addItem, setAddItem] = useState(quantity);
-	const totalPrice = +product.price * +quantity;
+	const totalPrice = product.price * quantity;
 
-	const handleAdd = () => {
-		cartStore.addItemToCart(addItem, product._id);
+	const handleAdd = (value) => {
+		setAddItem(value);
+		cartStore.addItemToCart(value, product);
+	};
+
+	const handleDelete = () => {
+		cartStore.removeItemFromCart(product._id);
 	};
 
 	return (
 		<Box>
-			<HStack w="100%">
-				<HStack w="45%">
-					<Avatar
-						source={{ uri: product.image }}
-						style={{ width: 100, height: 100, borderRadius: 5 }}
-						alt="image"
-					/>
+			<Flex
+				mt="2"
+				direction="row"
+				alignItems="center"
+				justifyContent="space-between"
+			>
+				<HStack>
+					<Avatar source={{ uri: baseURL + product.image }} alt="image" />
 
-					<Text m="2" fontSize="sm">
-						{product.name}
-					</Text>
+					<VStack ml="5">
+						<Text fontSize="sm">{product.name}</Text>
 
-					{/* <Text m="2" fontSize="sm">
-						{product.price} KD
-						</Text>
-						
-						<Text m="2" fontSize="sm">
-						{quantity} Pieces
-					</Text> */}
-				</HStack>
-				<HStack w="30%">
-					<VStack>
-						<NumericInput
-							value={addItem}
-							minValue={0}
-							iconSize={2}
-							totalWidth={100}
-							totalHeight={30}
-							rounded
-							onChange={(value) => setAddItem(value)}
-						/>
-						<Button
-							variant="solid"
-							colorScheme="danger"
-							size="xs"
-							onPress={handleAdd}
-						>
-							Add
-						</Button>
+						<Text fontSize="sm">{product.price} KD</Text>
 					</VStack>
 				</HStack>
-				<HStack w="30%">
-					<Text m="2" fontSize="sm">
-						<Text>{totalPrice}</Text>
-						<Text> KD Total</Text>
-					</Text>
+
+				<HStack>
+					<NumericInput
+						value={addItem}
+						minValue={1}
+						maxValue={product.quantity}
+						iconSize={2}
+						totalWidth={100}
+						totalHeight={30}
+						rounded
+						onChange={(value) => handleAdd(value)}
+					/>
+					<Button
+						ml="5"
+						size="xs"
+						variant="solid"
+						colorScheme="danger"
+						onPress={handleDelete}
+					>
+						Remove
+					</Button>
 				</HStack>
-			</HStack>
-			<Divider />
+			</Flex>
+			<Divider mt="2" />
 		</Box>
 	);
 };

@@ -5,49 +5,51 @@ class CartStore {
 		makeAutoObservable(this);
 	}
 
-	items = [
-		{
-			product: {
-				_id: "6182a8b31bd7fa38942fdf23",
-				name: "Cookie",
-				price: 5,
-				image:
-					"https://www.cookingclassy.com/wp-content/uploads/2014/06/chocolate-chip-cookie-16.jpg",
-			},
-			quantity: 5,
-		},
-		{
-			product: {
-				_id: "6182a8b31bd7fa46652fdf88",
-				name: "Another cookie",
-				price: 15,
-				image:
-					"https://www.cookingclassy.com/wp-content/uploads/2014/06/chocolate-chip-cookie-16.jpg",
-			},
-			quantity: 3,
-		},
-	];
+	items = [];
 
-	addItemToCart = (newItem, productId) => {
-		const item = this.items.find((item) => item.product._id === productId);
-		if (item) {
-			item.quantity = newItem;
+	checkQuantity = (newQ) => {
+		const sum = this.items.map((item) => item.quantity);
+		console.log(sum);
+	};
+
+	addItemToCart = (newQuantity, newProduct) => {
+		const foundItem = this.items.find(
+			(item) => item.product._id === newProduct._id
+		);
+
+		if (foundItem) {
+			foundItem.quantity = newQuantity;
+			console.log("Item is exists");
 		} else {
-			this.items = [
-				...this.items,
-				{
-					product: {
-						_id: productId._id,
-						name: productId.name,
-						price: 10,
-						image: productId.image,
-					},
-					quantity: newItem,
-				},
-			];
-			console.log(this.items);
+			this.items.push({
+				product: newProduct,
+				quantity: newQuantity,
+			});
+			console.log("Item is NOT exists");
 		}
 	};
+
+	removeItemFromCart = (productId) => {
+		const updateItems = this.items.filter(
+			(item) => item.product._id !== productId
+		);
+		this.items = updateItems;
+	};
+
+	get totalQuantity() {
+		let total = 0;
+		this.items.forEach((item) => (total = total + item.quantity));
+		return total;
+	}
+
+	get totalPrice() {
+		let total = 0;
+		this.items.forEach((item) => {
+			let sum = item.product.price * item.quantity;
+			total = total + sum;
+		});
+		return total;
+	}
 }
 
 const cartStore = new CartStore();

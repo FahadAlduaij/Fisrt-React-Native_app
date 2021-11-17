@@ -9,7 +9,7 @@ import ProductList from "../ProductList/ProductList";
 const ShopDetails = ({ navigation, route }) => {
 	const { shop } = route.params;
 	const productList = shop.products.map((product) => (
-		<ProductList key={product._id} product={product} />
+		<ProductList key={product._id} product={product} shop={shop} />
 	));
 
 	return (

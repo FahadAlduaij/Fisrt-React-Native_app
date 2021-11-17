@@ -1,37 +1,56 @@
-import React from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { AntDesign, FontAwesome, Feather } from "@expo/vector-icons";
+import React, { useState } from "react";
+import { StyleSheet, View } from "react-native";
+import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import { Flex } from "native-base";
+import { Box, Badge, VStack } from "native-base";
+import { observer } from "mobx-react";
+
+// stores
+import cartStore from "../../stores/cartStore";
 
 const CartButton = () => {
 	const navigation = useNavigation();
-	
+	// const [itemsQuantity, setItemsQuantity] = useState(cartStore.totalQuantity);
 
 	return (
-		<View style={styles.container}>
+		<Box style={styles.container}>
+			<VStack>
+				<Badge
+					colorScheme="danger"
+					rounded="999px"
+					mb={-4}
+					mr={1}
+					zIndex={1}
+					variant="solid"
+					alignSelf="flex-end"
+					_text={{
+						fontSize: 9,
+					}}
+				>
+					{cartStore.totalQuantity}
+				</Badge>
+				<AntDesign
+					name="shoppingcart"
+					size={30}
+					style={styles.cartIcon}
+					onPress={() => {
+						navigation.navigate("CartList");
+					}}
+				/>
+			</VStack>
 			<AntDesign
-				onPress={() => {
-					navigation.navigate("CartList");
-				}}
+				name="home"
+				size={30}
 				style={styles.cartIcon}
-				name="shoppingcart"
-				size={28}
-			/>
-
-			<AntDesign
 				onPress={() => {
 					navigation.push("Home");
 				}}
-				name="home"
-				size={28}
-				style={styles.cartIcon}
 			/>
-		</View>
+		</Box>
 	);
 };
 
-export default CartButton;
+export default observer(CartButton);
 
 const styles = StyleSheet.create({
 	container: {

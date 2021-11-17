@@ -1,6 +1,7 @@
 import React from "react";
 import { observer } from "mobx-react";
-import { VStack } from "native-base";
+import { VStack, Button, HStack, Heading, Flex } from "native-base";
+import { Text } from "react-native";
 
 // components
 import CartItem from "./CartItem";
@@ -17,7 +18,33 @@ const CartList = () => {
 		/>
 	));
 
-	return <VStack m="3">{itemList}</VStack>;
+	const handleCheckOut = () => {
+		cartStore.items = [];
+		alert("Thank you");
+	};
+
+	return (
+		<VStack mx="3">
+			{itemList}
+			<Flex direction="column" alignItems="flex-end" justifyContent="center">
+				<Heading mt="3" size="sm">
+					Total
+				</Heading>
+				<Heading mt="1" size="xs">
+					{cartStore.totalPrice} KD
+				</Heading>
+				<Button
+					mt="3"
+					size="xs"
+					variant="solid"
+					colorScheme="success"
+					onPress={handleCheckOut}
+				>
+					Checkout
+				</Button>
+			</Flex>
+		</VStack>
+	);
 };
 
 export default observer(CartList);
