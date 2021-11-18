@@ -18,7 +18,7 @@ const CartButton = () => {
 				<Badge
 					colorScheme="danger"
 					rounded="999px"
-					mb={-4}
+					mb={-3}
 					mr={1}
 					zIndex={1}
 					variant="solid"

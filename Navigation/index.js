@@ -18,10 +18,8 @@ const RootNavigator = () => {
 				name="Home"
 				component={Home}
 				options={{
-					headerStyle: {
-						backgroundColor: "#36b554",
-					},
-					headerShown: false,
+					title: "",
+					headerRight: () => <CartButton />,
 				}}
 			/>
 			<Screen
