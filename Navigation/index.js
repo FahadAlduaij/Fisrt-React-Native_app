@@ -7,7 +7,9 @@ import Home from "../components/Home/Home";
 import ShopList from "../components/ShopList/ShopList";
 import ShopDetails from "../components/ShopList/ShopDetails";
 import CartList from "../components/CartList/CartList";
-import CartButton from "../components/buttons/CartButton";
+import ButtonList from "../components/buttons/ButtonList";
+import Signin from "../components/auth/Signin";
+import Signup from "../components/auth/Signup";
 
 const RootNavigator = () => {
 	const { Navigator, Screen } = createStackNavigator();
@@ -19,7 +21,7 @@ const RootNavigator = () => {
 				component={Home}
 				options={{
 					title: "",
-					headerRight: () => <CartButton />,
+					headerRight: () => <ButtonList />,
 				}}
 			/>
 			<Screen
@@ -27,7 +29,7 @@ const RootNavigator = () => {
 				component={ShopList}
 				options={{
 					title: "Stream",
-					headerRight: () => <CartButton />,
+					headerRight: () => <ButtonList />,
 				}}
 			/>
 			<Screen
@@ -37,7 +39,7 @@ const RootNavigator = () => {
 					const { shop } = route.params;
 					return {
 						title: shop.name,
-						headerRight: () => <CartButton />,
+						headerRight: () => <ButtonList />,
 					};
 				}}
 			/>
@@ -46,6 +48,23 @@ const RootNavigator = () => {
 				component={CartList}
 				options={{
 					title: "Cart",
+				}}
+			/>
+			<Screen
+				name="Signin"
+				component={Signin}
+				options={{
+					title: "Sign in",
+					headerRight: () => <ButtonList />,
+				}}
+			/>
+
+			<Screen
+				name="Signup"
+				component={Signup}
+				options={{
+					title: "Sign up",
+					headerRight: () => <ButtonList />,
 				}}
 			/>
 		</Navigator>

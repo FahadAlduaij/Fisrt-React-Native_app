@@ -1,15 +1,16 @@
 import React from "react";
 import { observer } from "mobx-react";
 import { VStack, Button, HStack, Heading, Flex } from "native-base";
-import { Text } from "react-native";
+import { Text, Alert } from "react-native";
 
 // components
 import CartItem from "./CartItem";
 
 // stores
 import cartStore from "../../stores/cartStore";
+import authStore from "../../stores/authStore";
 
-const CartList = () => {
+const CartList = ({ navigation }) => {
 	const itemList = cartStore.items.map((item) => (
 		<CartItem
 			key={item.product._id}
@@ -21,6 +22,21 @@ const CartList = () => {
 	const handleCheckOut = () => {
 		cartStore.items = [];
 		alert("Thank you");
+	};
+
+	const handlePress = () => {
+		if (authStore.user) {
+			handleCheckOut();
+		} else {
+			Alert.alert("Sign in", "You need to be signed in for checkout.", [
+				{
+					text: "Cancel",
+					onPress: () => console.log("Cancel Pressed"),
+					style: "cancel",
+				},
+				{ text: "OK", onPress: () => navigation.navigate("Signin") },
+			]);
+		}
 	};
 
 	return (
@@ -38,7 +54,7 @@ const CartList = () => {
 					size="xs"
 					variant="solid"
 					colorScheme="success"
-					onPress={handleCheckOut}
+					onPress={handlePress}
 				>
 					Checkout
 				</Button>

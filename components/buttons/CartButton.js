@@ -13,7 +13,7 @@ const CartButton = () => {
 	// const [itemsQuantity, setItemsQuantity] = useState(cartStore.totalQuantity);
 
 	return (
-		<Box style={styles.container}>
+		<Box>
 			<VStack>
 				<Badge
 					colorScheme="danger"
@@ -38,14 +38,6 @@ const CartButton = () => {
 					}}
 				/>
 			</VStack>
-			<AntDesign
-				name="home"
-				size={30}
-				style={styles.cartIcon}
-				onPress={() => {
-					navigation.push("Home");
-				}}
-			/>
 		</Box>
 	);
 };
@@ -53,12 +45,6 @@ const CartButton = () => {
 export default observer(CartButton);
 
 const styles = StyleSheet.create({
-	container: {
-		display: "flex",
-		flexDirection: "row",
-		justifyContent: "center",
-		alignItems: "center",
-	},
 	cartIcon: {
 		marginRight: 15,
 		color: "#171717",
